@@ -1,0 +1,21 @@
+{
+  "name": "CMS",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "watch": "sass --watch public/scss/app.scss public/css/app.css"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "sass": "^1.49.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

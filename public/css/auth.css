@@ -1,0 +1,26 @@
+.auth {
+  overflow: hidden;
+}
+.auth .bg-wrapper {
+  height: 100vh;
+  padding: 10% 0;
+  background-color: #f2c98a;
+}
+.auth .bg-wrapper .img {
+  display: block;
+  margin: 0 auto;
+}
+.auth .bg-wrapper .img.bg {
+  width: 60%;
+}
+.auth .form {
+  padding: 10% 20%;
+}
+.auth .title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin: 48px 0;
+  text-align: center;
+}
+
+/*# sourceMappingURL=auth.css.map */

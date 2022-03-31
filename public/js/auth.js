@@ -31,7 +31,7 @@ registerButton.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0
     });
     data.json()
         .then(res => {
-        if (res.exist == false) {
+        if (res.exist === false) {
             fetch('http://localhost:3000/api/users', {
                 method: 'POST',
                 headers: {
@@ -48,6 +48,24 @@ registerButton.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0
         }
         else {
             alert('Please enter a different email address');
+        }
+    });
+}));
+const loginButton = document.querySelector('#login');
+loginButton.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0, function* () {
+    e.preventDefault();
+    const email = document.querySelector('#in-email');
+    const password = document.querySelector('#in-password');
+    const data = yield fetch(`http://localhost:3000/api/users/info/${email.value}/${password.value}`, {
+        method: 'GET'
+    });
+    data.json()
+        .then(res => {
+        if (res.exist === false) {
+            alert('Error email address or password');
+        }
+        else {
+            window.location.reload();
         }
     });
 }));

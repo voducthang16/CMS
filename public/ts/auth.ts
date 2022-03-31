@@ -23,7 +23,7 @@ registerButton.addEventListener('click', async e => {
     })
     data.json()
         .then(res => {
-            if (res.exist == false) {
+            if (res.exist === false) {
                 fetch('http://localhost:3000/api/users', {
                     method: 'POST',
                     headers: {
@@ -42,4 +42,22 @@ registerButton.addEventListener('click', async e => {
             }
         })
     
+})
+
+const loginButton = document.querySelector('#login') as HTMLElement;
+loginButton.addEventListener('click', async e => {
+    e.preventDefault();
+    const email = <HTMLInputElement>document.querySelector('#in-email');
+    const password = <HTMLInputElement>document.querySelector('#in-password');
+    const data = await fetch(`http://localhost:3000/api/users/info/${email.value}/${password.value}`, {
+        method: 'GET'
+    })
+    data.json()
+        .then(res => {
+            if (res.exist === false) {
+                alert('Error email address or password');
+            } else {
+                window.location.reload();
+            }
+        })
 })

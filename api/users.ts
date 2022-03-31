@@ -19,6 +19,7 @@ router.post('/', function(req: any, res, next) {
     user.save();
     req.session.login = true;
     req.session.email = req.body.email;
+    req.session.role = user.role;
     res.redirect('../');
 })
 
@@ -28,6 +29,24 @@ router.get('/email/:email', async function(req, res, next) {
     const data = await Users.findOne({ email: email }).exec();
     // exist
     if (data) {
+        res.send(data);
+    } else {
+        res.send({
+            exist: false
+        });
+    }
+})
+
+// Get user information
+router.get('/info/:email/:password', async function (req, res, next) {
+    const email = req.params.email;
+    const password = req.params.password;
+    const data = await Users.findOne({ email: email, password: password }).exec();
+    // exist
+    if (data) {
+        req.session.login = true;
+        req.session.email = data.email;
+        req.session.role = data.role;
         res.send(data);
     } else {
         res.send({

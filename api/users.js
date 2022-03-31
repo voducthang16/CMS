@@ -54,6 +54,7 @@ router.post('/', function (req, res, next) {
     user.save();
     req.session.login = true;
     req.session.email = req.body.email;
+    req.session.role = user.role;
     res.redirect('../');
 });
 // Get one user
@@ -69,6 +70,35 @@ router.get('/email/:email', function (req, res, next) {
                     data = _a.sent();
                     // exist
                     if (data) {
+                        res.send(data);
+                    }
+                    else {
+                        res.send({
+                            exist: false
+                        });
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+});
+// Get user information
+router.get('/info/:email/:password', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var email, password, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    email = req.params.email;
+                    password = req.params.password;
+                    return [4 /*yield*/, Users.findOne({ email: email, password: password }).exec()];
+                case 1:
+                    data = _a.sent();
+                    // exist
+                    if (data) {
+                        req.session.login = true;
+                        req.session.email = data.email;
+                        req.session.role = data.role;
                         res.send(data);
                     }
                     else {

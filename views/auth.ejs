@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/flex-grid.css">
     <link rel="stylesheet" href="css/auth.css">
@@ -25,21 +25,47 @@
                 </div>
             </div>
             <div class="col l-7">
-                <div class="form">
+                <form class="form">
                     <h2 class="title">Sign In To CMS</h2>
+                    <h3 class="sub-title">Bạn chưa có tài khoản? <span class="register-now">Đăng ký miễn phí ngay!</span></h3>
                     <div class="form-group">
-                        <label for="in-email">Email</label>
-                        <input type="email" id="in-email" class="form-control" placeholder="Nhập email của bạn">
+                        <input type="email" id="in-email" class="form-control" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <label for="in-password">Password</label>
                         <a href="/forgot-password">Quên mật khẩu?</a>
-                        <input type="password" id="in-password" class="form-control" placeholder="Nhập mật khẩu của bạn">
+                        <input type="password" id="in-password" class="form-control" placeholder="Mật khẩun">
                     </div>
                     <button class="btn w-100">Đăng nhập</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+    <!-- Register Form -->
+    <div class="register-wrapper overlay">
+        <form class="form">
+            <h2 class="title">Đăng ký</h2> <i class="overlay-close fal fa-times"></i>
+            <h3 class="sub-title">Nhanh chóng và dễ dàng</h3>
+            <div class="row">
+                <div class="col l-6">
+                    <div class="form-group">
+                        <input type="text" id="up-first-name" class="form-control" placeholder="Họ">
+                    </div>
+                </div>
+                <div class="col l-6">
+                    <div class="form-group">
+                        <input type="text" id="up-last-name" class="form-control" placeholder="Tên">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" id="up-email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" id="up-passowrd" class="form-control" placeholder="Mật khẩu mới">
+            </div>
+            <button class="btn">Đăng ký</button>
+        </form>
+    </div>
+    <script src="js/auth.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 :root {
     --primary-color: #009EF7;
+    --primary-hover: #33b1f9;
     --text-color: #111;
     --white-color: #fff;
 }
@@ -18,7 +19,7 @@ html {
 
 .form {
     .form-group {
-        margin-bottom: 32px;
+        margin-bottom: 24px;
         label {
             display: inline-block;
             margin-bottom: 8px;
@@ -33,6 +34,10 @@ html {
             font-weight: 600;
 
             float: right;
+            &:hover {
+                color: var(--primary-hover);
+                transition: color 0.4s ease;
+            }
         }
         .form-control {
             display: block;
@@ -50,15 +55,15 @@ html {
             outline: none;
             appearance: none;
             transition: color 0.2s ease, background-color 0.4s ease;
-        }
-        .form-control:focus {
-            border-radius: 8px;
-            border-color: #eef3f7;
-
-            background-color: #eef3f7;
-            color: #5E6278;
-
-            transition: color 0.2s ease, background-color 0.4s ease;
+            &:focus {
+                border-radius: 8px;
+                border-color: #eef3f7;
+        
+                background-color: #eef3f7;
+                color: #5E6278;
+        
+                transition: color 0.2s ease, background-color 0.4s ease;
+            }
         }
     }
 }

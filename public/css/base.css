@@ -1,5 +1,6 @@
 :root {
   --primary-color: #009EF7;
+  --primary-hover: #33b1f9;
   --text-color: #111;
   --white-color: #fff;
 }
@@ -17,7 +18,7 @@ html {
 }
 
 .form .form-group {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 .form .form-group label {
   display: inline-block;
@@ -31,6 +32,10 @@ html {
   font-size: 1.4rem;
   font-weight: 600;
   float: right;
+}
+.form .form-group a:hover {
+  color: var(--primary-hover);
+  transition: color 0.4s ease;
 }
 .form .form-group .form-control {
   display: block;

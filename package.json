@@ -7,13 +7,14 @@
     "watch": "sass --watch public/scss:public/css"
   },
   "dependencies": {
+    "body-parser": "^1.19.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.2",
     "http-errors": "~1.6.3",
-    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.9",
     "morgan": "~1.9.1",
     "sass": "^1.49.9"
   },

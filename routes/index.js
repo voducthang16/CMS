@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    let view = 'auth';
+router.get('/', function (req, res, next) {
+    var view = 'auth';
     if (req.session.login) {
-        view = 'index'
+        view = 'index';
     }
-    res.render(`${view}`, { title: 'Express' });
+    res.render("".concat(view), { title: 'Express' });
 });
-
 module.exports = router;

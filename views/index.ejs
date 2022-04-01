@@ -1,11 +1,105 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" href="img/logo/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/flex-grid.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="header">
+                LOGO
+            </div>
+            <div class="body">
+                <div class="menu">
+                    <div class="item default-active">
+                        <a class="link" href="">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black"></rect>
+                                </svg>
+                            </span>
+                            <h6>Dashboard</h6>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <span class="title" href="">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black"></rect>
+                                </svg>
+                            </span>
+                            <h6>Teachers</h6>
+                            <i class="fal fa-chevron-right"></i>
+                        </span>
+                        <div class="dropdown">
+                            <a class="" href="#subMenu1">
+                                <i class="fal fa-circle"></i>
+                                <h6 class="">sub default 1</h6>
+                            </a>
+                            <a class="" href="#subMenu1">
+                                <i class="fal fa-circle"></i>
+                                <h6 class="">sub default 2</h6>
+                            </a>
+                            <a class="" href="#subMenu1">
+                                <i class="fal fa-circle"></i>
+                                <h6 class="">sub default 3</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span class="title" href="">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black"></rect>
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black"></rect>
+                                </svg>
+                            </span>
+                            <h6>Students</h6>
+                            <i class="fal fa-chevron-right"></i>
+                        </span>
+                        <div class="dropdown">
+                            <a class="" href="#subMenu1">
+                                <i class="fal fa-circle"></i>
+                                <h6 class="">sub default 1</h6>
+                            </a>
+                            <a class="" href="#subMenu1">
+                                <i class="fal fa-circle"></i>
+                                <h6 class="">sub default 2</h6>
+                            </a>
+                            <a class="" href="#subMenu1">
+                                <i class="fal fa-circle"></i>
+                                <h6 class="">sub default 3</h6>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+
+        </main>
+    </div>
+    <script src="js/sidebar.js"></script>
+</body>
 </html>

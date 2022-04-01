@@ -1,0 +1,113 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    min-width: 264px;
+    background-color: #1e1e2d;
+    .header {
+        height: 64px;
+        background-color: #1a1a27;
+        color: var(--white-color);
+    }
+    .body {
+        padding-top: 16px;
+        .menu {
+            .item {
+                &.default-active {
+                    .link,
+                    .title {
+                        color: var(--white-color) !important;
+                        background-color: #1a1a27;
+                        svg [fill]:not(.permanent):not(g) {
+                            fill: #009ef7;
+                        }
+                        i {
+                            color: var(--white-color) !important;
+                        }
+                        
+                    }
+                }
+                .link,
+                .title {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 24px;
+                    
+                    color: #9899ac;
+
+                    font-size: 1.2rem;
+                    font-weight: 400;
+                    text-decoration: none;
+                    span {
+                        margin-right: 12px;
+                        svg [fill]:not(.permanent):not(g) {
+                            fill: #475569;
+                        }
+                    }
+                    h6 {
+                        letter-spacing: 1px;
+                    }
+                    i {
+                        margin-left: auto;
+                        transform: rotate(0);
+                        transition: transform ease 0.4s;
+                        will-change: transform;
+                    }
+                    &.active {
+                        color: var(--white-color) !important;
+                        background-color: #1a1a27;
+                    }
+                    &.active svg [fill]:not(.permanent):not(g) {
+                        fill: #009ef7;
+                    }
+                    &.active i {
+                        transform: rotate(90deg);
+                    }
+                    &:hover {
+                        background-color: #1a1a27;
+                        color: var(--white-color);
+                        cursor: pointer;
+                    }
+                    &:hover svg [fill]:not(.permanent):not(g) {
+                        fill: #009ef7;
+                    }
+                    &:hover i {
+                        color: var(--white-color) !important;
+                    }
+                }
+                .dropdown {
+                    max-height: 0;
+
+                    overflow: hidden;
+                    transition: max-height ease 0.6s;
+                    a {
+                        padding: 12px 24px;
+                        display: flex;
+                        align-items: center;
+
+                        font-size: 1.2rem;
+                        text-decoration: none;
+
+                        color: #9899ac;
+                        i {
+                            width: 24px;
+                            margin-right: 12px;
+
+                            font-size: 1rem;
+                            text-align: center;
+                        }
+                        &:hover {
+                            background-color: #1a1a27;
+                            color: var(--white-color);
+                            cursor: pointer;
+                        }
+                        &:hover i {
+                            color: #009ef7 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

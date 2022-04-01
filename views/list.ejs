@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách</title>
+    <link rel="icon" href="img/logo/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/flex-grid.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/list.css">
+</head>
+<body>
+    <div class="app">
+        <%- include('./partials/sidebar.ejs') %>
+        <main class="main">
+            <%- include('./partials/header.ejs') %>
+            <div class="body">
+                <div class="table">
+                    <div class="t-header">
+                        <h3 class="title">Danh sách người dùng</h3>
+                        <div class="toolbar">
+                            <h4 class="active">Tất cả</h4>
+                            <h4>Quản trị viên</h4>
+                            <h4>Giảng viên</h4>
+                            <h4>Sinh viên</h4>
+                        </div>
+                    </div>
+                    <div class="t-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="10%">#</th>
+                                    <th width="20%">Tên</th>
+                                    <th width="30%">Email</th>
+                                    <th width="20%">Vai trò</th>
+                                    <th width="20%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="render-data"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/sidebar.js"></script>
+    <script src="js/list.js"></script>
+</body>
+</html>

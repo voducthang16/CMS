@@ -1,8 +1,8 @@
-const title = document.querySelectorAll('.title') as NodeList;
+const title = document.querySelectorAll('.title-dropdown') as NodeList;
 const dropdown = document.querySelectorAll('.dropdown') as NodeList;
 
 function removeActiveItem() {
-    const titleActive = document.querySelector('.title.active') as HTMLElement;
+    const titleActive = document.querySelector('.title-dropdown.active') as HTMLElement;
     const dropdownActive = document.querySelector('.dropdown.active') as HTMLElement;
     titleActive.classList.remove('active');
     dropdownActive.style.maxHeight = '0';
@@ -15,8 +15,8 @@ title.forEach((item: any, index) => {
     item.onclick = (_e: any) => {
         const height = pane.scrollHeight;
 
-        if (!!document.querySelector('.title.active')) {
-            if (document.querySelector('.title.active') === _e.target) {
+        if (!!document.querySelector('.title-dropdown.active')) {
+            if (document.querySelector('.title-dropdown.active') === _e.target) {
                 removeActiveItem();
                 return;
             }

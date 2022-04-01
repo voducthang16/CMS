@@ -1,8 +1,8 @@
 "use strict";
-const title = document.querySelectorAll('.title');
+const title = document.querySelectorAll('.title-dropdown');
 const dropdown = document.querySelectorAll('.dropdown');
 function removeActiveItem() {
-    const titleActive = document.querySelector('.title.active');
+    const titleActive = document.querySelector('.title-dropdown.active');
     const dropdownActive = document.querySelector('.dropdown.active');
     titleActive.classList.remove('active');
     dropdownActive.style.maxHeight = '0';
@@ -12,8 +12,8 @@ title.forEach((item, index) => {
     const pane = dropdown[index];
     item.onclick = (_e) => {
         const height = pane.scrollHeight;
-        if (!!document.querySelector('.title.active')) {
-            if (document.querySelector('.title.active') === _e.target) {
+        if (!!document.querySelector('.title-dropdown.active')) {
+            if (document.querySelector('.title-dropdown.active') === _e.target) {
                 removeActiveItem();
                 return;
             }

@@ -9,6 +9,7 @@ const app = express();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const listRouter = require('./routes/list');
 
 const db = require('./config');
 db.connect();
@@ -34,6 +35,7 @@ const usersAPIRouter = require('./api/users');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/list', listRouter);
 
 // API Route
 app.use('/api/users', usersAPIRouter);

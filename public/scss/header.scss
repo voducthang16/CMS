@@ -1,0 +1,24 @@
+.main {
+    padding: 63px 0 0 264px;
+    .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 264px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 64px;
+        padding: 0 24px;
+
+        background-color: var(--white-color);
+
+        border-bottom: 1px solid #EFF2F5;
+    }
+    .body {
+        padding: 30px;
+        background-color: #EFF2F5;
+        height: 1000px;
+    }
+}

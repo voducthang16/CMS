@@ -24,26 +24,30 @@ function role(role) {
     }
 }
 function getAllUsers(getData, url) {
-    getData(url).then((data) => {
+    getData(url)
+        .then((data) => {
         const renderData = document.querySelector('.render-data');
         let result = '';
         let count = 1;
         data.forEach((item) => {
             result += `
-            <tr>
-                <td>${count++}</td>
-                <td class="bold">${item.lastName} ${item.firstName}</td>
-                <td>${item.email}</td>
-                <td class="bold">${role(item.role)}</td>
-                <td>
-                    <i data-id="${item._id}" class="fal fa-info"></i>
-                    <i data-id="${item._id}" class="fal fa-pencil"></i>
-                    <i data-id="${item._id}" class="fal fa-times"></i>
-                </td>
-            </tr>
-            `;
+                <tr>
+                    <td>${count++}</td>
+                    <td class="bold">${item.lastName} ${item.firstName}</td>
+                    <td>${item.email}</td>
+                    <td class="bold">${role(item.role)}</td>
+                    <td>
+                        <i data-id="${item._id}" class="fal fa-info"></i>
+                        <i data-id="${item._id}" class="role-button fal fa-pencil"></i>
+                        <i data-id="${item._id}" class="fal fa-times"></i>
+                    </td>
+                </tr>
+                `;
         });
         renderData.innerHTML = result;
+    })
+        .then(() => {
+        showRoleUser(roleModal);
     });
 }
 const roleTab = document.querySelectorAll('.role-tab');
@@ -61,4 +65,70 @@ roleTab.forEach((item) => {
             getAllUsers(getData, `http://localhost:3000/api/users/role/${role}`);
         }
     });
+});
+const roleModal = document.querySelector('.modal');
+function showRoleUser(modal) {
+    const roleButton = document.querySelectorAll('.role-button');
+    roleButton.forEach((role) => {
+        role.addEventListener('click', (_e) => {
+            const id = _e.target.dataset.id;
+            modal.classList.add('active');
+            getUserInformation(id)
+                .then((data) => {
+                data.map((item) => {
+                    if (item.role === 0) {
+                        const admin = document.querySelector('#admin');
+                        admin.checked = true;
+                    }
+                    else if (item.role === 1) {
+                        const students = document.querySelector('#students');
+                        students.checked = true;
+                    }
+                    else {
+                        const lecturers = document.querySelector('#lecturers');
+                        lecturers.checked = true;
+                    }
+                });
+                const roleSave = document.querySelector('.role-save');
+                roleSave.dataset.id = id;
+            });
+        });
+    });
+}
+const updateRole = (id, role) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch(`http://localhost:3000/api/users/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            role: role
+        })
+    });
+    data.json()
+        .then(() => {
+        alert('Update Successfully');
+    })
+        .then(() => {
+        const modal = document.querySelector('.modal.overlay.active');
+        modal === null || modal === void 0 ? void 0 : modal.classList.remove('active');
+    })
+        .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'));
+});
+document.addEventListener('click', e => {
+    const target = e.target;
+    if (target.classList.contains('overlay-close') || target.matches('.modal.overlay.active')) {
+        roleModal.classList.toggle('active');
+    }
+    // Update Role
+    if (target.classList.contains('role-save')) {
+        // Get Role Selected
+        const id = target.dataset.id;
+        const selectedRole = document.querySelector('input[name="role"]:checked');
+        updateRole(id, +selectedRole.value);
+    }
+});
+const getUserInformation = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch(`http://localhost:3000/api/users/${id}`);
+    return data.json();
 });

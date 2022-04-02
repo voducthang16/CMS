@@ -51,6 +51,22 @@
             </div>
         </main>
     </div>
+    <div class="modal overlay">
+        <form class="form">
+            <h2 class="title">Vai trò</h2> <i class="overlay-close fal fa-times"></i>
+            <div class="form-check">
+                <label for="admin">
+                    <input type="radio" name="role" value="0" id="admin">Quản trị viên
+                </label>
+                <label for="lecturers">
+                    <input type="radio" name="role" value="2" id="lecturers" >Giảng viên
+                </label>
+                <label for="students"><input type="radio" name="role" value="1" id="students">Sinh viên
+                </label>
+            </div>
+            <button style="margin: 8px 0 0 auto;" id="role" type="button" class="btn size-s role-save">Lưu</button>
+        </form>
+    </div>
     <script src="js/sidebar.js"></script>
     <script src="js/list.js"></script>
     <script>

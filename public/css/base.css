@@ -58,6 +58,17 @@ html {
   color: #5E6278;
   transition: color 0.2s ease, background-color 0.4s ease;
 }
+.form .form-check label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.4rem;
+}
+.form .form-check label input {
+  margin: 0 8px 0 0;
+}
+.form .form-check label + label {
+  margin-left: 8px;
+}
 
 .btn {
   display: inline-block;
@@ -78,6 +89,62 @@ html {
 }
 .btn:hover {
   background-color: #0095E8 !important;
+}
+.btn.size-s {
+  padding: 8px 40px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity linear 0.2s;
+}
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.modal .form {
+  position: relative;
+  width: 480px;
+  padding: 32px;
+  background: var(--white-color);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.modal .form .overlay-close {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  font-size: 1.6rem;
+}
+.modal .form .overlay-close:hover {
+  cursor: pointer;
+}
+.modal .title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.modal .sub-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.modal .btn {
+  display: block;
+  margin: 0 auto;
 }
 
 /*# sourceMappingURL=base.css.map */

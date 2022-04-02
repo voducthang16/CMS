@@ -61,7 +61,6 @@ router.get('/role/:role', function (req, res, next) {
                     data = _a.sent();
                     // exist
                     if (data) {
-                        // res.send(data);
                         res.json(data);
                     }
                     else {
@@ -74,16 +73,30 @@ router.get('/role/:role', function (req, res, next) {
         });
     });
 });
-// Create new user
-router.post('/', function (req, res, next) {
-    var user = new Users(req.body);
-    user.save();
-    req.session.login = true;
-    req.session.email = req.body.email;
-    req.session.role = user.role;
-    res.redirect('../');
+router.get('/:id', function (req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    id = req.params.id;
+                    return [4 /*yield*/, Users.find({ _id: id }).exec()];
+                case 1:
+                    data = _a.sent();
+                    if (data) {
+                        res.json(data);
+                    }
+                    else {
+                        res.send({
+                            exist: false
+                        });
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
 });
-// Get one user
+// Get one user by email
 router.get('/email/:email', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var email, data;
@@ -132,6 +145,36 @@ router.get('/info/:email/:password', function (req, res, next) {
                             exist: false
                         });
                     }
+                    return [2 /*return*/];
+            }
+        });
+    });
+});
+// Create new user
+router.post('/', function (req, res, next) {
+    var user = new Users(req.body);
+    user.save();
+    req.session.login = true;
+    req.session.email = req.body.email;
+    req.session.role = user.role;
+    res.redirect('../');
+});
+// Update role of user
+router.patch('/:id', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    id = req.params.id;
+                    return [4 /*yield*/, Users.findOne({ _id: id }).exec()];
+                case 1:
+                    user = _a.sent();
+                    user.role = req.body.role;
+                    return [4 /*yield*/, user.save()];
+                case 2:
+                    _a.sent();
+                    res.send(user);
                     return [2 /*return*/];
             }
         });

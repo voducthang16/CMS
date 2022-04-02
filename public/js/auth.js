@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const registerNow = document.querySelector('.register-now');
-const registerForm = document.querySelector('.register-wrapper');
+const registerForm = document.querySelector('.modal');
 registerNow.addEventListener('click', () => {
     registerForm.classList.toggle('active');
 });
 document.addEventListener('click', e => {
     const target = e.target;
-    if (target.classList.contains('overlay-close') || target.matches('.register-wrapper.overlay.active')) {
+    if (target.classList.contains('overlay-close') || target.matches('.modal.overlay.active')) {
         registerForm.classList.toggle('active');
     }
 });

@@ -82,12 +82,19 @@ router.post('/', function(req: any, res, next) {
 })
 
 // Update role of user
-router.patch('/:id', async function(req: any, res, next) {
+router.patch('/role/:id', async function(req: any, res, next) {
     const id = req.params.id;
     const user = await Users.findOne({ _id: id }).exec();
     user.role = req.body.role;
     await user.save();
     res.send(user);
+})
+
+// Delete user
+router.delete('/delete/:id', async (req, res) => {
+    const id = req.params.id;
+    const result = await Users.deleteOne({ _id: id }).exec();
+    res.send(result);
 })
 
 module.exports = router;

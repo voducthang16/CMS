@@ -3,6 +3,11 @@ const getData = async (url: string) => {
     return data.json();
 }
 
+const getUserInformation = async (id: number) => {
+    const data = await fetch(`http://localhost:3000/api/users/${id}`);
+    return data.json();
+}
+
 function role(role: number) {
     if (role === 0) {
         return 'Quản trị viên';
@@ -29,7 +34,7 @@ function getAllUsers(getData: Function, url: string) {
                     <td>
                         <i data-id="${item._id}" class="fal fa-info"></i>
                         <i data-id="${item._id}" class="role-button fal fa-pencil"></i>
-                        <i data-id="${item._id}" class="fal fa-times"></i>
+                        <i data-id="${item._id}" class="delete-button fal fa-times"></i>
                     </td>
                 </tr>
                 `;
@@ -38,6 +43,7 @@ function getAllUsers(getData: Function, url: string) {
         })
         .then(() => {
             showRoleUser(roleModal)
+            showDeleteForm(deleteUserButton)
         })
 }
 
@@ -59,7 +65,8 @@ roleTab.forEach((item: any) => {
     })
 })
 
-const roleModal = document.querySelector('.modal') as HTMLElement;
+const roleModal = document.querySelector('.role.modal') as HTMLElement;
+
 function showRoleUser(modal: HTMLElement) {
     const roleButton = document.querySelectorAll('.role-button') as NodeList;
     roleButton.forEach((role: any) => {
@@ -88,7 +95,7 @@ function showRoleUser(modal: HTMLElement) {
 }
 
 const updateRole = async (id: number, role: number) => {
-    const data = await fetch(`http://localhost:3000/api/users/${id}`, {
+    const data = await fetch(`http://localhost:3000/api/users/role/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -112,10 +119,45 @@ const updateRole = async (id: number, role: number) => {
         .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'))
 }
 
+
+const deleteUserButton = document.querySelector('.delete-user.modal') as HTMLElement;
+const showDeleteForm = (modal: HTMLElement) => {
+    const deleteButton = document.querySelectorAll('.delete-button') as NodeList;
+    deleteButton.forEach((item: any) => {
+        item.addEventListener('click', (_e: any) => {
+            const id = _e.target.dataset.id;
+            modal.classList.add('active');
+            const deleteUser = document.querySelector('#delete-user') as HTMLElement;
+            deleteUser.dataset.id = id;
+        })
+    })
+}
+
+const deleteUser = async (id: number) => {
+    const data = await fetch(`http://localhost:3000/api/users/delete/${id}`, {
+        method: 'DELETE',
+    })
+    data.json()
+        .then(() => {
+            alert('Delete Successfully');
+        })
+        .then(() => {
+            const modal = document.querySelector('.modal.overlay.active');
+            const roleTab = document.querySelector('.role-tab.active');
+            const defaultRoleTab = document.querySelector('h4[data-role="all"]');
+            roleTab?.classList.remove('active');
+            modal?.classList.remove('active');
+            defaultRoleTab?.classList.add('active');
+        })
+        .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'))
+}
 document.addEventListener('click', e => {
     const target = e.target as HTMLElement;
-    if (target.classList.contains('overlay-close') || target.matches('.modal.overlay.active')) {
+    if (target.matches('.role .overlay-close') || target.matches('.role.modal.overlay.active')) {
         roleModal.classList.toggle('active');
+    }
+    if (target.matches('.delete-user .overlay-close') || target.matches('.delete-user.modal.overlay.active') || target.matches('.delete-user .n')) {
+        deleteUserButton.classList.toggle('active');
     }
     // Update Role
     if (target.classList.contains('role-save')) {
@@ -124,9 +166,9 @@ document.addEventListener('click', e => {
         const selectedRole = document.querySelector('input[name="role"]:checked') as HTMLInputElement;
         updateRole(id, +selectedRole.value);
     }
+    // Delete User
+    if (target.classList.contains('d')) {
+        const id = target.dataset.id as any;
+        deleteUser(id);
+    }
 })
-
-const getUserInformation = async (id: number) => {
-    const data = await fetch(`http://localhost:3000/api/users/${id}`);
-    return data.json();
-}

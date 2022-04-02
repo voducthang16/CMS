@@ -12,6 +12,10 @@ const getData = (url) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield fetch(`${url}`);
     return data.json();
 });
+const getUserInformation = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch(`http://localhost:3000/api/users/${id}`);
+    return data.json();
+});
 function role(role) {
     if (role === 0) {
         return 'Quản trị viên';
@@ -39,7 +43,7 @@ function getAllUsers(getData, url) {
                     <td>
                         <i data-id="${item._id}" class="fal fa-info"></i>
                         <i data-id="${item._id}" class="role-button fal fa-pencil"></i>
-                        <i data-id="${item._id}" class="fal fa-times"></i>
+                        <i data-id="${item._id}" class="delete-button fal fa-times"></i>
                     </td>
                 </tr>
                 `;
@@ -48,6 +52,7 @@ function getAllUsers(getData, url) {
     })
         .then(() => {
         showRoleUser(roleModal);
+        showDeleteForm(deleteUserButton);
     });
 }
 const roleTab = document.querySelectorAll('.role-tab');
@@ -66,7 +71,7 @@ roleTab.forEach((item) => {
         }
     });
 });
-const roleModal = document.querySelector('.modal');
+const roleModal = document.querySelector('.role.modal');
 function showRoleUser(modal) {
     const roleButton = document.querySelectorAll('.role-button');
     roleButton.forEach((role) => {
@@ -96,7 +101,7 @@ function showRoleUser(modal) {
     });
 }
 const updateRole = (id, role) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield fetch(`http://localhost:3000/api/users/${id}`, {
+    const data = yield fetch(`http://localhost:3000/api/users/role/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -119,10 +124,43 @@ const updateRole = (id, role) => __awaiter(void 0, void 0, void 0, function* () 
     })
         .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'));
 });
+const deleteUserButton = document.querySelector('.delete-user.modal');
+const showDeleteForm = (modal) => {
+    const deleteButton = document.querySelectorAll('.delete-button');
+    deleteButton.forEach((item) => {
+        item.addEventListener('click', (_e) => {
+            const id = _e.target.dataset.id;
+            modal.classList.add('active');
+            const deleteUser = document.querySelector('#delete-user');
+            deleteUser.dataset.id = id;
+        });
+    });
+};
+const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch(`http://localhost:3000/api/users/delete/${id}`, {
+        method: 'DELETE',
+    });
+    data.json()
+        .then(() => {
+        alert('Delete Successfully');
+    })
+        .then(() => {
+        const modal = document.querySelector('.modal.overlay.active');
+        const roleTab = document.querySelector('.role-tab.active');
+        const defaultRoleTab = document.querySelector('h4[data-role="all"]');
+        roleTab === null || roleTab === void 0 ? void 0 : roleTab.classList.remove('active');
+        modal === null || modal === void 0 ? void 0 : modal.classList.remove('active');
+        defaultRoleTab === null || defaultRoleTab === void 0 ? void 0 : defaultRoleTab.classList.add('active');
+    })
+        .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'));
+});
 document.addEventListener('click', e => {
     const target = e.target;
-    if (target.classList.contains('overlay-close') || target.matches('.modal.overlay.active')) {
+    if (target.matches('.role .overlay-close') || target.matches('.role.modal.overlay.active')) {
         roleModal.classList.toggle('active');
+    }
+    if (target.matches('.delete-user .overlay-close') || target.matches('.delete-user.modal.overlay.active') || target.matches('.delete-user .n')) {
+        deleteUserButton.classList.toggle('active');
     }
     // Update Role
     if (target.classList.contains('role-save')) {
@@ -131,8 +169,9 @@ document.addEventListener('click', e => {
         const selectedRole = document.querySelector('input[name="role"]:checked');
         updateRole(id, +selectedRole.value);
     }
-});
-const getUserInformation = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield fetch(`http://localhost:3000/api/users/${id}`);
-    return data.json();
+    // Delete User
+    if (target.classList.contains('d')) {
+        const id = target.dataset.id;
+        deleteUser(id);
+    }
 });

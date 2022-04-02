@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _this = this;
 var express = require('express');
 var router = express.Router();
 var Users = require('../model/Users');
@@ -160,7 +161,7 @@ router.post('/', function (req, res, next) {
     res.redirect('../');
 });
 // Update role of user
-router.patch('/:id', function (req, res, next) {
+router.patch('/role/:id', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var id, user;
         return __generator(this, function (_a) {
@@ -180,4 +181,19 @@ router.patch('/:id', function (req, res, next) {
         });
     });
 });
+// Delete user
+router["delete"]('/delete/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var id, result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, Users.deleteOne({ _id: id }).exec()];
+            case 1:
+                result = _a.sent();
+                res.send(result);
+                return [2 /*return*/];
+        }
+    });
+}); });
 module.exports = router;

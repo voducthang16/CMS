@@ -103,7 +103,11 @@ const updateRole = async (id: number, role: number) => {
         })
         .then(() => {
             const modal = document.querySelector('.modal.overlay.active');
+            const roleTab = document.querySelector('.role-tab.active');
+            const defaultRoleTab = document.querySelector('h4[data-role="all"]');
+            roleTab?.classList.remove('active');
             modal?.classList.remove('active');
+            defaultRoleTab?.classList.add('active');
         })
         .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'))
 }

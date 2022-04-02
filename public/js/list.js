@@ -111,7 +111,11 @@ const updateRole = (id, role) => __awaiter(void 0, void 0, void 0, function* () 
     })
         .then(() => {
         const modal = document.querySelector('.modal.overlay.active');
+        const roleTab = document.querySelector('.role-tab.active');
+        const defaultRoleTab = document.querySelector('h4[data-role="all"]');
+        roleTab === null || roleTab === void 0 ? void 0 : roleTab.classList.remove('active');
         modal === null || modal === void 0 ? void 0 : modal.classList.remove('active');
+        defaultRoleTab === null || defaultRoleTab === void 0 ? void 0 : defaultRoleTab.classList.add('active');
     })
         .then(() => getAllUsers(getData, 'http://localhost:3000/api/users/'));
 });

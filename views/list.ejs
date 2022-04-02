@@ -27,10 +27,10 @@
                     <div class="t-header">
                         <h3 class="title">Danh sách người dùng</h3>
                         <div class="toolbar">
-                            <h4 class="active">Tất cả</h4>
-                            <h4>Quản trị viên</h4>
-                            <h4>Giảng viên</h4>
-                            <h4>Sinh viên</h4>
+                            <h4 data-role="all" class="role-tab active">Tất cả</h4>
+                            <h4 data-role="0" class="role-tab">Quản trị viên</h4>
+                            <h4 data-role="2" class="role-tab">Giảng viên</h4>
+                            <h4 data-role="1" class="role-tab">Sinh viên</h4>
                         </div>
                     </div>
                     <div class="t-body">
@@ -53,5 +53,10 @@
     </div>
     <script src="js/sidebar.js"></script>
     <script src="js/list.js"></script>
+    <script>
+        if ('<%=role%>' == 0) {
+            getAllUsers(getData, 'http://localhost:3000/api/users/');
+        }
+    </script>
 </body>
 </html>

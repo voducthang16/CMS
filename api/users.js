@@ -48,6 +48,32 @@ router.get('/', function (req, res, next) {
         }
     });
 });
+// Get role of users
+router.get('/role/:role', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var role, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    role = req.params.role;
+                    return [4 /*yield*/, Users.find({ role: role }).exec()];
+                case 1:
+                    data = _a.sent();
+                    // exist
+                    if (data) {
+                        // res.send(data);
+                        res.json(data);
+                    }
+                    else {
+                        res.send({
+                            exist: false
+                        });
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+});
 // Create new user
 router.post('/', function (req, res, next) {
     var user = new Users(req.body);

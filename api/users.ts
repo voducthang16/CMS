@@ -13,6 +13,20 @@ router.get('/', function(req, res, next) {
     })
 });
 
+// Get role of users
+router.get('/role/:role', async function(req, res, next) {
+    const role = req.params.role;
+    const data = await Users.find({ role: role }).exec();
+    // exist
+    if (data) {
+        res.json(data);
+    } else {
+        res.send({
+            exist: false
+        });
+    }
+})
+
 // Create new user
 router.post('/', function(req: any, res, next) {
     const user = new Users(req.body);

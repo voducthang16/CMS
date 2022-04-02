@@ -4,9 +4,9 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
     var url = req.originalUrl;
     url = url.substr(1);
-    console.log(url)
     res.render('list', {
-        url: url
+        url: url,
+        role: req.session.role
     });
 });
 module.exports = router;

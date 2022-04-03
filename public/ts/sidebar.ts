@@ -1,6 +1,5 @@
 const title = document.querySelectorAll('.title-dropdown') as NodeList;
 const dropdown = document.querySelectorAll('.dropdown') as NodeList;
-
 function removeActiveItem() {
     const titleActive = document.querySelector('.title-dropdown.active') as HTMLElement;
     const dropdownActive = document.querySelector('.dropdown.active') as HTMLElement;

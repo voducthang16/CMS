@@ -32,6 +32,7 @@ app.use(session({
 
 // Define REST API
 const usersAPIRouter = require('./api/users');
+const roomsAPIRouter = require('./api/rooms');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -39,6 +40,7 @@ app.use('/list', listRouter);
 app.use('/room', roomRouter);
 // API Route
 app.use('/api/users', usersAPIRouter);
+app.use('/api/rooms', roomsAPIRouter);
 
 
 // catch 404 and forward to error handler

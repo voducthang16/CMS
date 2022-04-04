@@ -23,7 +23,7 @@
             <%- include('./partials/header.ejs') %>
             <div class="body">
                 <div class="table">
-                    <button class="btn create-room"><i class="fal fa-plus"></i>Thêm</button>
+                    <button class="btn create-subject"><i class="fal fa-plus"></i>Thêm</button>
                     <div class="t-header">
                         <h3 class="title">Danh sách môn học</h3>
                         <!-- <div class="toolbar">
@@ -37,11 +37,14 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th width="10%">#</th>
-                                    <th width="15%">Tên</th>
-                                    <th width="45%">Link</th>
+                                    <th width="5%">#</th>
+                                    <th width="20%">Tên</th>
+                                    <th width="25%">Phòng</th>
+                                    <th width="10%">Giảng viên</th>
+                                    <th width="10%">Thời gian</th>
+                                    <th width="10%">Lịch</th>
                                     <th width="10%">Trạng thái</th>
-                                    <th width="20%">Actions</th>
+                                    <th width="10%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="render-data"></tbody>
@@ -51,14 +54,49 @@
             </div>
         </main>
     </div>
-    <div class="add-room modal overlay">
+    <div class="add-subject modal overlay">
         <form class="form">
-            <h2 class="title">Thêm phòng</h2> <i class="overlay-close fal fa-times"></i>
+            <h2 class="title">Thêm môn học</h2> <i class="overlay-close fal fa-times"></i>
             <div class="form-group">
                 <input type="text" id="name" class="form-control" placeholder="Tên">
             </div>
+            <div class="form-select">
+                <select name="room" id="room">
+                    
+                </select>
+            </div>
+            <div class="form-select">
+                <select name="lecturer" id="lecturer">
+                    
+                </select>
+            </div>
             <div class="form-group">
-                <input type="text" id="link" class="form-control" placeholder="Link">
+                <label for="">Thời gian biểu</label>
+                <div class="schedule">
+                    <div>
+                        Start: <input type="time" name="start" id="start-time">
+                    </div>
+                    <div>
+                        End: <input type="time" name="end" id="end-time">
+                    </div>
+                    <div>
+                        Ngày học:
+                        <select name="weekday" id="weekday">
+                            <option hidden>Chọn ngày</option>
+                            <option value="0">Thứ hai</option>
+                            <option value="1">Thứ ba</option>
+                            <option value="2">Thứ tư</option>
+                            <option value="3">Thứ năm</option>
+                            <option value="4">Thứ sáu</option>
+                        </select>
+                    </div>
+                    <div>
+                        Ngày bắt đầu: <input type="date" name="" id="start-day">
+                    </div>
+                    <div>
+                        Ngày kết thúc: <input type="date" name="" id="end-day">
+                    </div>
+                </div>
             </div>
             <div class="form-check">
                 <label for="active">
@@ -68,7 +106,7 @@
                     <input type="radio" name="status" value="1" id="inactive" >Inactive
                 </label>
             </div>
-            <button style="margin: 0 0 0 auto;" type="button" class="btn size-s room-save">Thêm</button>
+            <button style="margin: 0 0 0 auto;" type="button" class="btn size-s subject-save">Thêm</button>
         </form>
     </div>
     <div class="delete-user modal overlay">
@@ -82,5 +120,6 @@
         <!-- <button style="margin: 8px 0 0 auto;" id="role" type="button" class="btn size-s role-save">Lưu</button> -->
     </div>
     <script src="js/sidebar.js"></script>
+    <script src="js/subject.js"></script>
 </body>
 </html>

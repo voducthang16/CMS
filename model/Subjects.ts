@@ -4,12 +4,16 @@ var Schema = mongoose.Schema;
 const Subject = new Schema({
     name: {type: String, require: true},
     code: {type: String, require: true},
-    room: {type: String, require: true},
-    lecturer: {type: String, require: true},
-    students: {type: Array, require: true},
-    timeStart: {type: Date, require: true},
-    timeEnd: {type: Date, require: true},
-    weekdays: {type: Array, require: true},
+    room: {type: Schema.Types.ObjectId, require: true, ref: 'Room'},
+    lecturer: {type: Schema.Types.ObjectId, require: true, ref: 'User'},
+    students: {type: Array, default: []},
+    // timeSchedule: {type: Array, require: true},
+    startTime: {type: String, require: true},
+    endTime: {type: String, require: true},
+    startDay: {type: String, require: true},
+    endDay: {type: String, require: true},
+    weekdays: {type: Number, require: true},
+    status: {type: Number, default: 0},
 }, {
     timestamps: true,
 })

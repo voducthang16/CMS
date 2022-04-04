@@ -7,13 +7,13 @@ addSubject.addEventListener('click', async e => {
     e.preventDefault();
     const name = document.querySelector('#name') as HTMLInputElement;
     let code = acronym(vn_to_en(name.value.toLocaleLowerCase()));
-    const room = document.querySelector('#room') as HTMLInputElement;
+    const room = document.querySelector('#room') as HTMLSelectElement;
     const lecturer = document.querySelector('#lecturer') as HTMLSelectElement;
     const startTime = document.querySelector('#start-time') as HTMLInputElement;
     const endTime = document.querySelector('#end-time') as HTMLInputElement;
-    const weekday = document.querySelector('#weekday') as HTMLSelectElement;
     const startDay = document.querySelector('#start-day') as HTMLInputElement;
     const endDay = document.querySelector('#end-day') as HTMLInputElement;
+    const weekday = (new Date(startDay.value)).getDay();
     const status =  document.querySelector('input[name="status"]:checked') as HTMLInputElement;
     const quantity = await fetch(`http://localhost:3000/api/subjects/name/${name.value.toLocaleLowerCase()}`);
     quantity.json()
@@ -33,7 +33,7 @@ addSubject.addEventListener('click', async e => {
                 endTime: endTime.value,
                 startDay: startDay.value,
                 endDay: endDay.value,
-                weekdays: weekday.value,
+                weekdays: weekday,
                 status: status.value,
             })
         })
@@ -41,16 +41,22 @@ addSubject.addEventListener('click', async e => {
             .then(() => {
                 alert('Create Subject Successfully');
             })
+            .then(() => {
+                const modal = document.querySelector('.modal.overlay.active');
+                name.value = '';
+                room.options.length = 0;
+                lecturer.options.length = 0;
+                startTime.value = '';
+                endTime.value = '';
+                startDay.value = '';
+                endDay.value = '';
+                status.value = '';
+                modal?.classList.remove('active');
+            })
+            .then(() => {
+                getAllSubjects();
+            })
     })
-        // .then(() => {
-        //     const modal = document.querySelector('.modal.overlay.active');
-        //     name.value = '';
-        //     status.checked = false;
-        //     modal?.classList.remove('active');
-        // })
-        // .then(() => {
-        //     getAllRooms()
-        // })
 })
 
 createSubjectButton.addEventListener('click', async e => {
@@ -80,15 +86,19 @@ createSubjectButton.addEventListener('click', async e => {
 
 const weekday = (value: number) => {
     if (value === 0) {
-        return 'Thứ hai'
+        return 'Chủ nhật';
     } else if (value === 1) {
-        return 'Thứ ba'
+        return 'Thứ hai';
     } else if (value === 2) {
-        return 'Thứ tư'
+        return 'Thứ ba';
     } else if (value === 3) {
-        return 'Thứ năm'
+        return 'Thứ tư';
+    } else if (value === 4) {
+        return 'Thứ năm';
+    } else if (value === 5) {
+        return 'Thứ sáu';
     } else {
-        return 'Thứ sáu'
+        return 'Thứ bảy';
     }
 }
 
@@ -121,6 +131,20 @@ const getAllSubjects = async () => {
     })
 }
 getAllSubjects()
+
+const createSchedule = (start: string, end: string) => {
+    let result = [];
+    let startDay = new Date(start) as any;
+    do {
+        result.push({
+            day: new Date(startDay)
+        })
+        startDay.setDate(startDay.getDate() + 7);
+    } while(new Date(startDay) < new Date(end));
+    return result;
+}
+
+console.log(createSchedule('2022-04-05', '2022-06-06'))
 
 const getRoom = async () => {
     const data = await fetch('http://localhost:3000/api/rooms');

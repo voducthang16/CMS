@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const listRouter = require('./routes/list');
 const roomRouter = require('./routes/room');
+const subjectRouter = require('./routes/subject');
 const db = require('./config');
 db.connect();
 // view engine setup
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/list', listRouter);
 app.use('/room', roomRouter);
+app.use('/subject', subjectRouter);
 // API Route
 app.use('/api/users', usersAPIRouter);
 app.use('/api/rooms', roomsAPIRouter);

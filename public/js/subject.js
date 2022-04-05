@@ -63,6 +63,27 @@ addSubject.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0, fu
             status.value = '';
             modal === null || modal === void 0 ? void 0 : modal.classList.remove('active');
         })
+            .then(() => __awaiter(void 0, void 0, void 0, function* () {
+            yield getNewestId()
+                .then((data) => __awaiter(void 0, void 0, void 0, function* () {
+                const schedule = createSchedule(data._id, data.startDay, data.endDay);
+                const detail = yield fetch('http://localhost:3000/api/details', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        subject_id: data._id,
+                        scores: [],
+                        rollUps: schedule
+                    })
+                });
+                detail.json()
+                    .then(data => {
+                    console.log(data);
+                });
+            }));
+        }))
             .then(() => {
             getAllSubjects();
         });
@@ -143,18 +164,22 @@ const getAllSubjects = () => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 getAllSubjects();
-const createSchedule = (start, end) => {
+const createSchedule = (id, start, end) => {
     let result = [];
     let startDay = new Date(start);
     do {
         result.push({
+            id: `${id}_${JSON.stringify(new Date(startDay)).slice(1, 11)}`,
             day: new Date(startDay)
         });
         startDay.setDate(startDay.getDate() + 7);
     } while (new Date(startDay) < new Date(end));
     return result;
 };
-console.log(createSchedule('2022-04-05', '2022-06-06'));
+const getNewestId = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch('http://localhost:3000/api/subjects/one');
+    return data.json();
+});
 const getRoom = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield fetch('http://localhost:3000/api/rooms');
     return data.json();

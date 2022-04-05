@@ -53,6 +53,27 @@ addSubject.addEventListener('click', async e => {
                 status.value = '';
                 modal?.classList.remove('active');
             })
+            .then(async () => {
+                await getNewestId()
+                .then(async data => {
+                    const schedule = createSchedule(data._id, data.startDay, data.endDay);
+                    const detail = await fetch('http://localhost:3000/api/details', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            subject_id: data._id,
+                            scores: [],
+                            rollUps: schedule
+                        })
+                    })
+                    detail.json()
+                        .then(data => {
+                            console.log(data)
+                        })
+                })
+            })
             .then(() => {
                 getAllSubjects();
             })
@@ -132,11 +153,12 @@ const getAllSubjects = async () => {
 }
 getAllSubjects()
 
-const createSchedule = (start: string, end: string) => {
+const createSchedule = (id: string, start: string, end: string) => {
     let result = [];
     let startDay = new Date(start) as any;
     do {
         result.push({
+            id: `${id}_${JSON.stringify(new Date(startDay)).slice(1, 11)}`,
             day: new Date(startDay)
         })
         startDay.setDate(startDay.getDate() + 7);
@@ -144,7 +166,11 @@ const createSchedule = (start: string, end: string) => {
     return result;
 }
 
-console.log(createSchedule('2022-04-05', '2022-06-06'))
+const getNewestId = async () => {
+    const data = await fetch('http://localhost:3000/api/subjects/one');
+    return data.json()
+}
+
 
 const getRoom = async () => {
     const data = await fetch('http://localhost:3000/api/rooms');

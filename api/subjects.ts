@@ -15,6 +15,13 @@ router.get('/name/:name', async (req, res) => {
     res.send({data});
 })
 
+router.get('/one', async (req, res) => {
+    Subjects.findOne({}).sort('-createdAt').exec((err, result) => {
+        if (err) throw err;
+        res.json(result)
+    })
+})
+
 router.post('/', function(req: any, res, next) {
     const subject = new Subjects(req.body);
     subject.save();

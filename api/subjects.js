@@ -59,6 +59,16 @@ router.get('/name/:name', function (req, res) { return __awaiter(_this, void 0, 
         }
     });
 }); });
+router.get('/one', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        Subjects.findOne({}).sort('-createdAt').exec(function (err, result) {
+            if (err)
+                throw err;
+            res.json(result);
+        });
+        return [2 /*return*/];
+    });
+}); });
 router.post('/', function (req, res, next) {
     var subject = new Subjects(req.body);
     subject.save();

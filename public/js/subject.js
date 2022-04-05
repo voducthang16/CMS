@@ -177,7 +177,7 @@ const createSchedule = (id, start, end) => {
     return result;
 };
 const getNewestId = () => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield fetch('http://localhost:3000/api/subjects/one');
+    const data = yield fetch('http://localhost:3000/api/subjects/one/latest');
     return data.json();
 });
 const getRoom = () => __awaiter(void 0, void 0, void 0, function* () {

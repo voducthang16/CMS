@@ -167,7 +167,7 @@ const createSchedule = (id: string, start: string, end: string) => {
 }
 
 const getNewestId = async () => {
-    const data = await fetch('http://localhost:3000/api/subjects/one');
+    const data = await fetch('http://localhost:3000/api/subjects/one/latest');
     return data.json()
 }
 

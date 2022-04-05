@@ -9,12 +9,13 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const id = req.params.id
-    Subjects.find({}).populate('room lecturer').exec((err, result) => {
-        if (err) throw err;
-        res.json(result)
-    })
+    const data = await Subjects.find({
+        lecturer: id,
+        // endDay: {$gte: '2022-04-06', $lte: '2022-04-26'}
+    }).populate('room lecturer').exec();
+    res.json(data);
 })
 
 router.patch('/:subjectId/:userId', async (req, res) => {
@@ -32,11 +33,15 @@ router.get('/name/:name', async (req, res) => {
     res.send({data});
 })
 
-router.get('/one', async (req, res) => {
-    Subjects.findOne({}).sort('-createdAt').exec((err, result) => {
+router.get('/one/latest', (req, res) => {
+    Subjects.findOne().sort({createdAt: -1}).exec((err, result) => {
         if (err) throw err;
         res.json(result)
     })
+    // Subjects.find({}).populate('room lecturer').exec((err, result) => {
+    //     if (err) throw err;
+    //     res.json(result)
+    // })
 })
 
 router.post('/', function(req: any, res, next) {

@@ -45,14 +45,22 @@ router.get('/', function (req, res) {
         res.json(result);
     });
 });
-router.get('/:id', function (req, res) {
-    var id = req.params.id;
-    Subjects.find({}).populate('room lecturer').exec(function (err, result) {
-        if (err)
-            throw err;
-        res.json(result);
+router.get('/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var id, data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, Subjects.find({
+                        lecturer: id
+                    }).populate('room lecturer').exec()];
+            case 1:
+                data = _a.sent();
+                res.json(data);
+                return [2 /*return*/];
+        }
     });
-});
+}); });
 router.patch('/:subjectId/:userId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var subjectId, userId, subject;
     return __generator(this, function (_a) {
@@ -86,16 +94,17 @@ router.get('/name/:name', function (req, res) { return __awaiter(_this, void 0, 
         }
     });
 }); });
-router.get('/one', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        Subjects.findOne({}).sort('-createdAt').exec(function (err, result) {
-            if (err)
-                throw err;
-            res.json(result);
-        });
-        return [2 /*return*/];
+router.get('/one/latest', function (req, res) {
+    Subjects.findOne().sort({ createdAt: -1 }).exec(function (err, result) {
+        if (err)
+            throw err;
+        res.json(result);
     });
-}); });
+    // Subjects.find({}).populate('room lecturer').exec((err, result) => {
+    //     if (err) throw err;
+    //     res.json(result)
+    // })
+});
 router.post('/', function (req, res, next) {
     var subject = new Subjects(req.body);
     subject.save();

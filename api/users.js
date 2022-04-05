@@ -139,6 +139,7 @@ router.get('/info/:email/:password', function (req, res, next) {
                         req.session.login = true;
                         req.session.email = data.email;
                         req.session.role = data.role;
+                        req.session.userId = data._id;
                         res.send(data);
                     }
                     else {
@@ -158,6 +159,7 @@ router.post('/', function (req, res, next) {
     req.session.login = true;
     req.session.email = req.body.email;
     req.session.role = user.role;
+    req.session.userId = user._id;
     res.redirect('../');
 });
 // Update role of user

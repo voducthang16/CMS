@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký môn học</title>
+    <link rel="icon" href="img/logo/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/flex-grid.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+<body>
+    <div class="app">
+        <%- include('./partials/sidebar.ejs') %>
+        <main class="main">
+            <%- include('./partials/header.ejs') %>
+            <div class="body">
+                <div class="table">
+                    <div class="t-header">
+                        <h3 class="title">Danh sách môn <%=id%></h3>
+                        <!-- <div class="toolbar">
+                            <h4 data-role="all" class="role-tab active">Tất cả</h4>
+                            <h4 data-role="0" class="role-tab">Quản trị viên</h4>
+                            <h4 data-role="2" class="role-tab">Giảng viên</h4>
+                            <h4 data-role="1" class="role-tab">Sinh viên</h4>
+                        </div> -->
+                    </div>
+                    <div class="t-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <th width="20%">Tên</th>
+                                    <th width="15%">Giảng viên</th>
+                                    <th width="15%">Thời gian</th>
+                                    <th width="15%">Lịch học</th>
+                                    <th width="15%">Số lượng</th>
+                                    <th width="15%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="render-data"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="user-registration modal overlay">
+        <form class="form">
+            <h2 class="title">Bạn có muốn đăng ký môn học không?</h2> <i class="overlay-close fal fa-times"></i>
+            <button style="margin: 0 0 0 auto;" type="button" class="btn size-s user-save">Đăng ký</button>
+        </form>
+    </div>
+    <div class="delete-user modal overlay">
+        <form style="width: 630px" class="form">
+            <h2 class="title">Bạn có muốn xóa người dùng này không?</h2> <i class="overlay-close fal fa-times"></i>
+            <div class="delete">
+                <button type="button" class="btn size-s n">Không</button>
+                <button type="button" id="delete-user" class="btn size-s d">Xóa</button>
+            </div>
+        </form>
+        <!-- <button style="margin: 8px 0 0 auto;" id="role" type="button" class="btn size-s role-save">Lưu</button> -->
+    </div>
+    <script src="js/sidebar.js"></script>
+    <script src="js/registration.js"></script>
+    <script>
+        getAllSubs('<%=id%>');
+    </script>
+</body>
+</html>

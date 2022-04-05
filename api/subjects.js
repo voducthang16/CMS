@@ -45,6 +45,33 @@ router.get('/', function (req, res) {
         res.json(result);
     });
 });
+router.get('/:id', function (req, res) {
+    var id = req.params.id;
+    Subjects.find({}).populate('room lecturer').exec(function (err, result) {
+        if (err)
+            throw err;
+        res.json(result);
+    });
+});
+router.patch('/:subjectId/:userId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var subjectId, userId, subject;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                subjectId = req.params.subjectId;
+                userId = req.params.userId;
+                return [4 /*yield*/, Subjects.findOne({ _id: subjectId }).exec()];
+            case 1:
+                subject = _a.sent();
+                subject.students.push("".concat(userId));
+                return [4 /*yield*/, subject.save()];
+            case 2:
+                _a.sent();
+                res.send(subject);
+                return [2 /*return*/];
+        }
+    });
+}); });
 router.get('/name/:name', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var name, data;
     return __generator(this, function (_a) {

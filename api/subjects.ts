@@ -9,6 +9,23 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id
+    Subjects.find({}).populate('room lecturer').exec((err, result) => {
+        if (err) throw err;
+        res.json(result)
+    })
+})
+
+router.patch('/:subjectId/:userId', async (req, res) => {
+    const subjectId = req.params.subjectId;
+    const userId = req.params.userId;
+    const subject = await Subjects.findOne({ _id: subjectId }).exec();
+    subject.students.push(`${userId}`)
+    await subject.save()
+    res.send(subject);
+})
+
 router.get('/name/:name', async (req, res) => {
     const name = req.params.name;
     const data = await Subjects.count({name: name});

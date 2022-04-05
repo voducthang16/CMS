@@ -12,6 +12,9 @@ const usersRouter = require('./routes/users');
 const listRouter = require('./routes/list');
 const roomRouter = require('./routes/room');
 const subjectRouter = require('./routes/subject');
+const scheduleRouter = require('./routes/schedule');
+const registrationRouter = require('./routes/registration');
+
 const db = require('./config');
 db.connect();
 // view engine setup
@@ -42,6 +45,8 @@ app.use('/users', usersRouter);
 app.use('/list', listRouter);
 app.use('/room', roomRouter);
 app.use('/subject', subjectRouter);
+app.use('/schedule', scheduleRouter);
+app.use('/registration', registrationRouter);
 // API Route
 app.use('/api/users', usersAPIRouter);
 app.use('/api/rooms', roomsAPIRouter);

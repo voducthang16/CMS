@@ -4,11 +4,22 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
     var url = req.originalUrl;
     url = url.substr(1);
-    req.session.userId = '624a51840d208a89390fd10b';
-    res.render('student_schedule', {
-        url: url,
-        role: req.session.role,
-        id: req.session.userId
-    });
+    var view = 'lecturer_schedule';
+    if (!req.session.login) {
+        res.redirect('./');
+    }
+    if (req.session.role == 0) {
+        res.render('permission', {});
+    }
+    else {
+        if (req.session.role == 1) {
+            view = 'student_schedule';
+        }
+        res.render("".concat(view), {
+            url: url,
+            role: req.session.role,
+            id: req.session.userId
+        });
+    }
 });
 module.exports = router;

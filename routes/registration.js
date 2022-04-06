@@ -4,11 +4,18 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
     var url = req.originalUrl;
     url = url.substr(1);
-    req.session.userId = '624a51840d208a89390fd10b';
-    res.render('registration', {
-        url: url,
-        role: req.session.role,
-        id: req.session.userId
-    });
+    if (!req.session.login) {
+        res.redirect('./');
+    }
+    if (req.session.role != 1) {
+        res.render('permission', {});
+    }
+    else {
+        res.render('registration', {
+            url: url,
+            role: req.session.role,
+            id: req.session.userId
+        });
+    }
 });
 module.exports = router;

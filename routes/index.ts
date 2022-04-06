@@ -5,13 +5,16 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     let url = req.originalUrl;
     url = url.substr(1)
-    // let view = 'auth';
-    // if (req.session.login) {
-    //     view = 'index'
-    // }
-    let view = 'index';
+    let view = 'auth';
+    if (req.session.login) {
+        view = 'index';
+        if (req.session.role != 0) {
+            res.redirect('./schedule');
+        }
+    }
     res.render(`${view}`, {
-        url: url
+        url: url,
+        role: req.session.role
     });
 });
 

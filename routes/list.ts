@@ -5,10 +5,17 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     let url = req.originalUrl;
     url = url.substr(1)
-    res.render('list', {
-        url: url,
-        role: req.session.role
-    });
+    if (!req.session.login) {
+        res.redirect('./')
+    }
+    if (req.session.role != 0) {
+        res.render('permission', {})
+    } else {
+        res.render('list', {
+            url: url,
+            role: req.session.role
+        });
+    }
 });
 
 module.exports = router;

@@ -16,7 +16,7 @@ router.get('/lecturer/:id', async (req, res) => {
     const id = req.params.id;
     const data = await Details.find({}).populate('subject_id').exec();
     let result = [];
-    data.forEach((item, index) => {
+    data.forEach(item => {
         if (item.subject_id.lecturer == id) {
             result.push(item)
         }
@@ -29,6 +29,18 @@ router.get('/lecturer/:id', async (req, res) => {
     //     }
     // }).exec();
     // res.json(data);
+})
+
+router.get('/student/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = await Details.find({}).populate('subject_id').exec();
+    let result = [];
+    data.forEach(item => {
+        if (item.subject_id.students.includes(id)) {
+            result.push(item)
+        }
+    })
+    res.json(result)
 })
 
 router.post('/', function(req: any, res, next) {

@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     let url = req.originalUrl;
     url = url.substr(1)
-    req.session.userId = '624a519e0d208a89390fd10e'
+    req.session.userId = '624a51840d208a89390fd10b'
     res.render('registration', {
         url: url,
         role: req.session.role,

@@ -67,8 +67,28 @@ router.get('/lecturer/:id', function (req, res) { return __awaiter(_this, void 0
             case 1:
                 data = _a.sent();
                 result = [];
-                data.forEach(function (item, index) {
+                data.forEach(function (item) {
                     if (item.subject_id.lecturer == id) {
+                        result.push(item);
+                    }
+                });
+                res.json(result);
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.get('/student/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var id, data, result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, Details.find({}).populate('subject_id').exec()];
+            case 1:
+                data = _a.sent();
+                result = [];
+                data.forEach(function (item) {
+                    if (item.subject_id.students.includes(id)) {
                         result.push(item);
                     }
                 });

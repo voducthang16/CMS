@@ -50,10 +50,10 @@ const registrationUserModal = () => {
                 userRegistrationModal.classList.remove('active');
             })
             .then(() => {
-                alert('Registration successfully')
+                alert('Registration successfully');
             })
             .then(() => {
-                getAllSubs(userId as string)
+                window.location.reload();
             })
     })
     document.addEventListener('click', e => {
@@ -62,7 +62,6 @@ const registrationUserModal = () => {
             userRegistrationModal.classList.toggle('active');
         }
     })
-    
 }
 
 const registrationUser = async (subjectId?: string, userId?: string) => {

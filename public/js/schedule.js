@@ -63,6 +63,19 @@ const renderLink = () => {
         });
     });
 };
+const getLecturers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch(`http://localhost:3000/api/users/role/2`);
+    return data.json();
+});
+const renderLecturers = () => {
+    getLecturers().then(data => {
+        data.forEach((item) => {
+            document.querySelectorAll(`.a${item._id}`).forEach((tag) => {
+                tag.innerHTML = `${item.lastName} ${item.firstName}`;
+            });
+        });
+    });
+};
 const weekday2 = (value) => {
     if (value === 0) {
         return 'Chủ nhật';
@@ -86,6 +99,50 @@ const weekday2 = (value) => {
         return 'Thứ bảy';
     }
 };
+const getStudentSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch(`http://localhost:3000/api/details/student/${id}`);
+    data.json()
+        .then(data => {
+        const renderData = document.querySelector('.render-data');
+        let result = '';
+        let day = [];
+        data.forEach((item) => {
+            item.rollUps.forEach((roll) => {
+                day.push({
+                    id: roll.id,
+                    name: item.subject_id.name,
+                    startTime: item.subject_id.startTime,
+                    endTime: item.subject_id.endTime,
+                    day: roll.day,
+                    link: item.subject_id.room,
+                    weekday: item.subject_id.weekdays,
+                    lecturer: item.subject_id.lecturer
+                });
+            });
+        });
+        day.sort(function compare(a, b) {
+            var dateA = new Date(a.day);
+            var dateB = new Date(b.day);
+            return dateA - dateB;
+        });
+        let count = 1;
+        day.map(item => {
+            result += `
+                    <tr>
+                        <td>${count++}</td>
+                        <td>${item.day} <br> ${weekday2(item.weekday)}</td>
+                        <td style="text-transform: capitalize" class="bold">${item.name}</td>
+                        <td>${item.startTime} - ${item.endTime}</td>
+                        <td class="a${item.link}"></td>
+                        <td style="text-align: center !important" class="a${item.lecturer}"></td>
+                    </tr>
+                `;
+        });
+        renderData.innerHTML = result;
+        renderLink();
+        renderLecturers();
+    });
+});
 // const renderDate = () => {
 //     const renderData = document.querySelector('.render-header') as HTMLElement;
 //     const data = getDateRangeOfWeek(getCurrentWeek());

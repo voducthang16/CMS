@@ -62,7 +62,7 @@ const registrationUserModal = () => {
             alert('Registration successfully');
         })
             .then(() => {
-            getAllSubs(userId);
+            window.location.reload();
         });
     });
     document.addEventListener('click', e => {

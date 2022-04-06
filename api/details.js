@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _this = this;
 var express = require('express');
 var router = express.Router();
 var Details = require('../model/Details');
@@ -56,6 +57,26 @@ router.get('/subject/:id', function (req, res) {
         });
     });
 });
+router.get('/lecturer/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var id, data, result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, Details.find({}).populate('subject_id').exec()];
+            case 1:
+                data = _a.sent();
+                result = [];
+                data.forEach(function (item, index) {
+                    if (item.subject_id.lecturer == id) {
+                        result.push(item);
+                    }
+                });
+                res.json(result);
+                return [2 /*return*/];
+        }
+    });
+}); });
 router.post('/', function (req, res, next) {
     var detail = new Details(req.body);
     detail.save();

@@ -12,6 +12,12 @@ router.get('/', function(req, res, next) {
     })
 })
 
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = await Rooms.findOne({id: id}).exec();
+    res.json(data);
+})
+
 router.post('/', function(req: any, res, next) {
     const room = new Rooms(req.body);
     room.save();

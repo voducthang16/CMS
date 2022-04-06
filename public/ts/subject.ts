@@ -50,7 +50,7 @@ addSubject.addEventListener('click', async e => {
                 endTime.value = '';
                 startDay.value = '';
                 endDay.value = '';
-                status.value = '';
+                status.checked = false;
                 modal?.classList.remove('active');
             })
             .then(async () => {
@@ -159,10 +159,10 @@ const createSchedule = (id: string, start: string, end: string) => {
     do {
         result.push({
             id: `${id}_${JSON.stringify(new Date(startDay)).slice(1, 11)}`,
-            day: new Date(startDay)
+            day: JSON.stringify(new Date(startDay)).slice(1, 11)
         })
         startDay.setDate(startDay.getDate() + 7);
-    } while(new Date(startDay) < new Date(end));
+    } while(new Date(startDay) <= new Date(end));
     return result;
 }
 

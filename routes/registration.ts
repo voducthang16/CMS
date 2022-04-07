@@ -6,8 +6,9 @@ router.get('/', function(req, res, next) {
     let url = req.originalUrl;
     url = url.substr(1);
     if (!req.session.login) {
-        res.redirect('./')
-    }
+        res.redirect('./');
+        return;
+    } 
     if (req.session.role != 1) {
         res.render('permission', {})
     } else {

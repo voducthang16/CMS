@@ -7,7 +7,8 @@ router.get('/', function(req, res, next) {
     url = url.substr(1);
     let view = 'lecturer_schedule'
     if (!req.session.login) {
-        res.redirect('./')
+        res.redirect('./');
+        return;
     }
     if (req.session.role == 0) {
         res.render('permission', {})

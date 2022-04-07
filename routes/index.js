@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
         view = 'index';
         if (req.session.role != 0) {
             res.redirect('./schedule');
+            return;
         }
     }
     res.render("".concat(view), {

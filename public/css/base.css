@@ -291,4 +291,14 @@ html {
   margin-right: 12px;
 }
 
+.form-render div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+}
+.form-render div label {
+  margin-left: auto;
+}
+
 /*# sourceMappingURL=base.css.map */

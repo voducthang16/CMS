@@ -316,3 +316,16 @@ html {
         }
     }
 }
+
+.form-render {
+    div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        
+        font-size: 1.6rem;
+        label {
+            margin-left: auto;
+        }
+    }
+}

@@ -45,24 +45,79 @@
             </div>
         </main>
     </div>
-    <div class="add-room modal overlay">
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+    <div class="roll-up modal overlay">
         <form class="form">
-            <h2 class="title">Thêm phòng</h2> <i class="overlay-close fal fa-times"></i>
-            <div class="form-group">
-                <input type="text" id="name" class="form-control" placeholder="Tên">
+            <h2 class="title">Điểm danh <span class="roll-date"></span></h2> <i class="overlay-close fal fa-times"></i>
+            <div class="form-render">
+                <div>
+                    <span style="margin-right: 16px">1</span>
+                    <span>Nghi</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="text" id="link" class="form-control" placeholder="Link">
-            </div>
-            <div class="form-check">
-                <label for="active">
-                    <input type="radio" name="status" value="0" id="active">Active
-                </label>
-                <label for="inactive">
-                    <input type="radio" name="status" value="1" id="inactive" >Inactive
-                </label>
-            </div>
-            <button style="margin: 0 0 0 auto;" type="button" class="btn size-s room-save">Thêm</button>
+            <button style="margin: 0 0 0 auto;" type="button" class="btn size-s roll-save">Lưu</button>
         </form>
     </div>
     <div class="delete-user modal overlay">

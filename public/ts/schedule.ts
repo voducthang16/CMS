@@ -5,17 +5,22 @@ const getSchedule = async (id: string) => {
             const renderData = document.querySelector('.render-data') as HTMLElement;
             let result = '';
             let day: any[] = []
+            let currentDay = new Date() as any;
+            currentDay = currentDay.toISOString().split('T')[0];
             data.forEach((item: any) => {
                 item.rollUps.forEach((roll: any) => {
-                    day.push({
-                        id: roll.id,
-                        name: item.subject_id.name,
-                        startTime: item.subject_id.startTime,
-                        endTime: item.subject_id.endTime,
-                        day: roll.day,
-                        link: item.subject_id.room,
-                        weekday: item.subject_id.weekdays
-                    })
+                    if(new Date(roll.day) >= new Date(currentDay)) {
+                        day.push({
+                            id: roll.id,
+                            name: item.subject_id.name,
+                            startTime: item.subject_id.startTime,
+                            endTime: item.subject_id.endTime,
+                            day: roll.day,
+                            link: item.subject_id.room,
+                            weekday: item.subject_id.weekdays,
+                            code: item.subject_id.code
+                        })
+                    }
                 })
             })
             day.sort(function compare(a, b): any {
@@ -29,16 +34,48 @@ const getSchedule = async (id: string) => {
                     <tr>
                         <td>${count++}</td>
                         <td>${item.day} <br> ${weekday2(item.weekday)}</td>
-                        <td>${item.name}</td>
+                        <td><span style="text-transform: capitalize" class="bold">${item.name}</span> <br> ${item.code}</td>
                         <td>${item.startTime} - ${item.endTime}</td>
                         <td class="a${item.link}"></td>
-                        <td>DIEM DANH</td>
+                        <td>${rollUp(item.day, item.startTime, item.endTime)}</td>
                     </tr>
                 `
             })
             renderData.innerHTML = result;
-            renderLink()
+            renderLink();
+            roll();
         })
+}
+
+const rollUp = (day: string, start: string, end: string) => {
+    const currentDay = new Date();
+    const today = currentDay.toISOString().split('T')[0];
+    const currentHour = currentDay.getHours();
+    const currentMinute = currentDay.getMinutes();
+    const hourStart = +start.substring(0, 2);
+    const hourEnd = +end.substring(0, 2);
+    const minute = +start.substring(3,5);
+    const button = `<button style="margin-bottom: 0 !important" class="btn size-s roll">Điểm danh</button>`;
+    if (today == day) {
+        if (hourStart <= currentHour && currentHour <= hourEnd) {
+            if ((hourStart === currentHour || hourEnd === currentHour) && currentMinute <= minute) {
+                return button;
+            }
+            return button;
+        }
+    }
+    return '';
+}
+
+const roll = async () => {
+    document.addEventListener('click', e => {
+        const target = e.target as HTMLElement;
+        const rollUp = document.querySelector('.roll-up') as HTMLElement;
+        const render = document.querySelector('.form-render') as HTMLElement;
+        if (target.classList.contains('roll')) {
+            rollUp.classList.add('active')
+        }
+    })
 }
 
 const getLink = async () => {
@@ -95,20 +132,24 @@ const getStudentSchedule = async (id: number) => {
     .then(data => {
         const renderData = document.querySelector('.render-data') as HTMLElement;
             let result = '';
-            let day: any[] = []
+            let day: any[] = [];
+            let currentDay = new Date() as any;
+            currentDay = currentDay.toISOString().split('T')[0];
             data.forEach((item: any) => {
-                item.rollUps.forEach((roll: any) => {
-                    day.push({
-                        id: roll.id,
-                        name: item.subject_id.name,
-                        startTime: item.subject_id.startTime,
-                        endTime: item.subject_id.endTime,
-                        day: roll.day,
-                        link: item.subject_id.room,
-                        weekday: item.subject_id.weekdays,
-                        lecturer: item.subject_id.lecturer
+                if(new Date(item.day) >= new Date(currentDay)) {
+                    item.rollUps.forEach((roll: any) => {
+                        day.push({
+                            id: roll.id,
+                            name: item.subject_id.name,
+                            startTime: item.subject_id.startTime,
+                            endTime: item.subject_id.endTime,
+                            day: roll.day,
+                            link: item.subject_id.room,
+                            weekday: item.subject_id.weekdays,
+                            lecturer: item.subject_id.lecturer
+                        })
                     })
-                })
+                }
             })
             day.sort(function compare(a, b): any {
                 var dateA = new Date(a.day) as any;

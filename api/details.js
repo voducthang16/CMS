@@ -103,4 +103,32 @@ router.post('/', function (req, res, next) {
     res.send(detail);
     // res.redirect('../');
 });
+router.patch('/rollup/:id/:day', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var id, day, combined, result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                day = req.params.day;
+                combined = "".concat(id, "_").concat(day);
+                return [4 /*yield*/, Details.findOne({ subject_id: id }).exec()];
+            case 1:
+                result = _a.sent();
+                result.rollUps.forEach(function (item, index) {
+                    if (item.id == combined) {
+                        result.rollUps[index] = {
+                            id: item.id,
+                            day: item.day,
+                            rollup: req.body.data
+                        };
+                    }
+                });
+                return [4 /*yield*/, result.save()];
+            case 2:
+                _a.sent();
+                res.send(result);
+                return [2 /*return*/];
+        }
+    });
+}); });
 module.exports = router;

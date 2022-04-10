@@ -61,6 +61,22 @@ router.get('/:id', function (req, res) { return __awaiter(_this, void 0, void 0,
         }
     });
 }); });
+router.get('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var subjectId, data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                subjectId = req.params.id;
+                return [4 /*yield*/, Subjects.find({
+                        _id: subjectId
+                    }).populate('students').exec()];
+            case 1:
+                data = _a.sent();
+                res.json(data);
+                return [2 /*return*/];
+        }
+    });
+}); });
 router.patch('/:subjectId/:userId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var subjectId, userId, subject;
     return __generator(this, function (_a) {

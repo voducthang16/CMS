@@ -5,7 +5,7 @@ var Subject = new Schema({
     code: { type: String, require: true },
     room: { type: Schema.Types.ObjectId, require: true, ref: 'Room' },
     lecturer: { type: Schema.Types.ObjectId, require: true, ref: 'User' },
-    students: { type: Array, "default": [] },
+    students: { type: Array, "default": [], ref: 'User' },
     // timeSchedule: {type: Array, require: true},
     startTime: { type: String, require: true },
     endTime: { type: String, require: true },

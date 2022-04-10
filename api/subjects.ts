@@ -18,6 +18,14 @@ router.get('/:id', async (req, res) => {
     res.json(data);
 })
 
+router.get('/students/:id', async (req, res) => {
+    const subjectId = req.params.id;
+    const data = await Subjects.find({
+        _id: subjectId,
+    }).populate('students').exec();
+    res.json(data)
+})
+
 router.patch('/:subjectId/:userId', async (req, res) => {
     const subjectId = req.params.subjectId;
     const userId = req.params.userId;

@@ -28,7 +28,9 @@ const getSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
                         day: roll.day,
                         link: item.subject_id.room,
                         weekday: item.subject_id.weekdays,
-                        code: item.subject_id.code
+                        code: item.subject_id.code,
+                        subjectId: item.subject_id._id,
+                        rollUp: item.rollUps
                     });
                 }
             });
@@ -47,7 +49,7 @@ const getSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
                         <td><span style="text-transform: capitalize" class="bold">${item.name}</span> <br> ${item.code}</td>
                         <td>${item.startTime} - ${item.endTime}</td>
                         <td class="a${item.link}"></td>
-                        <td>${rollUp(item.day, item.startTime, item.endTime)}</td>
+                        <td>${rollUp(item.day, item.startTime, item.endTime, item.subjectId, item.rollUp)}</td>
                     </tr>
                 `;
         });
@@ -56,7 +58,7 @@ const getSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
         roll();
     });
 });
-const rollUp = (day, start, end) => {
+const rollUp = (day, start, end, subjectId, rollup) => {
     const currentDay = new Date();
     const today = currentDay.toISOString().split('T')[0];
     const currentHour = currentDay.getHours();
@@ -64,27 +66,115 @@ const rollUp = (day, start, end) => {
     const hourStart = +start.substring(0, 2);
     const hourEnd = +end.substring(0, 2);
     const minute = +start.substring(3, 5);
-    const button = `<button style="margin-bottom: 0 !important" class="btn size-s roll">Điểm danh</button>`;
-    if (today == day) {
-        if (hourStart <= currentHour && currentHour <= hourEnd) {
-            if ((hourStart === currentHour || hourEnd === currentHour) && currentMinute <= minute) {
-                return button;
+    const button = `<button data-id="${subjectId}" data-today="${today}" style="margin-bottom: 0 !important" class="btn size-s roll">Điểm danh</button>`;
+    const array = [];
+    rollup.forEach((roll) => {
+        if (roll.day == today) {
+            array.push(roll);
+        }
+    });
+    if (array[0]) {
+        if (Object.keys(array[0]).length == 3) {
+            return '';
+        }
+        else {
+            if (today == day) {
+                if (hourStart <= currentHour && currentHour <= hourEnd) {
+                    if ((hourStart === currentHour || hourEnd === currentHour) && currentMinute <= minute) {
+                        return button;
+                    }
+                    return button;
+                }
             }
-            return button;
         }
     }
     return '';
 };
-const roll = () => __awaiter(void 0, void 0, void 0, function* () {
-    document.addEventListener('click', e => {
+const roll = () => {
+    document.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0, function* () {
         const target = e.target;
         const rollUp = document.querySelector('.roll-up');
         const render = document.querySelector('.form-render');
         if (target.classList.contains('roll')) {
+            const id = target.dataset.id;
+            const today = target.dataset.today;
+            const data = yield fetch(`http://localhost:3000/api/subjects/students/${id}`);
+            let result = '';
+            let count = 1;
+            let order = 1;
+            data.json().then(res => {
+                res[0].students.map((student) => {
+                    result += `
+                    <div>
+                        <span style="margin-right: 16px">${count++}</span>
+                        <span>${student.lastName} ${student.firstName}</span>
+                        <label class="switch">
+                            <input data-order="${order++}" type="checkbox" name="${student._id}">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    `;
+                });
+                render.innerHTML = result;
+            });
             rollUp.classList.add('active');
+            rollSave(id, today);
         }
-    });
-});
+        if (target.matches('.roll-up .overlay-close') || target.matches('.roll-up.modal.overlay.active')) {
+            rollUp.classList.toggle('active');
+        }
+    }));
+};
+const rollSave = (id, today) => {
+    document.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0, function* () {
+        const target = e.target;
+        if (target.classList.contains('roll-save')) {
+            const input = document.querySelectorAll('input[type="checkbox"]');
+            let checked = [];
+            let nonChecked = [];
+            let data = [];
+            input.forEach((item) => {
+                if (item.checked) {
+                    checked.push(item);
+                }
+                else {
+                    nonChecked.push(item);
+                }
+            });
+            checked.forEach((item) => {
+                data.push({
+                    id: item.name,
+                    present: true,
+                    order: item.dataset.order
+                });
+            });
+            nonChecked.forEach((item) => {
+                data.push({
+                    id: item.name,
+                    present: false,
+                    order: item.dataset.order
+                });
+            });
+            data.sort(function compare(a, b) {
+                return a.order - b.order;
+            });
+            const result = yield fetch(`http://localhost:3000/api/details/rollup/${id}/${today}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    data
+                })
+            });
+            result.json()
+                .then(() => {
+                alert('Điểm danh thành công');
+                window.location.reload();
+            });
+        }
+    }));
+};
 const getLink = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield fetch(`http://localhost:3000/api/rooms`);
     return data.json();

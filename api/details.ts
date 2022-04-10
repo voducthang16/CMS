@@ -50,4 +50,22 @@ router.post('/', function(req: any, res, next) {
     // res.redirect('../');
 })
 
+router.patch('/rollup/:id/:day', async (req, res) => {
+    const id = req.params.id;
+    const day = req.params.day;
+    let combined = `${id}_${day}`;
+    const result = await Details.findOne({ subject_id: id}).exec();
+    result.rollUps.forEach((item, index) => {
+        if (item.id == combined) {
+            result.rollUps[index] = {
+                id: item.id,
+                day: item.day,
+                rollup: req.body.data
+            }
+        }
+    })
+    await result.save();
+    res.send(result);
+})
+
 module.exports = router;
